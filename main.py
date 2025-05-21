@@ -25,15 +25,20 @@ async def lifespan(app: FastAPI):
 
         async def consume_messages():
             try:
-                # start consumer connect
-                await consumer.connect()
-                print('consumer connected to RabbitMQ')
-
-                while True:
-                    await asyncio.sleep(1)
+                # 소비자 연결 및 메시지 수신 시작
+                success = await consumer.start_consuming()
+                if success:
+                    print("Consumer started successfully and is listening for messages")
+                    # 소비자가 계속 실행되도록 유지
+                    while True:
+                        await asyncio.sleep(1)
+                else:
+                    print("Failed to start consumer")
             except asyncio.CancelledError:
-                print('consumer connect cancelled from RabbitMQ')
+                print("Consumer task was cancelled")
+                # 정상적인 종료 시 리소스 정리
                 await consumer.close()
+                print("Consumer connection closed")
             except Exception as e:
                 print(f"Error in consumer task: {e}")
                 # 비정상 종료 시에도 리소스 정리 시도

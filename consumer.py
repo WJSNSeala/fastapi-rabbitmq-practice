@@ -25,7 +25,7 @@ class RabbitMQConsumer:
                 self.connection = await aio_pika.connect_robust("amqp://guest:guest@localhost/")
 
                 # channel
-                self.channel = self.connection.channel()
+                self.channel = await self.connection.channel()
 
                 # queue 선언, producer와 같은 큐를 사용하기
                 self.queue = await self.channel.declare_queue(name=self.queue_name, durable=True)
