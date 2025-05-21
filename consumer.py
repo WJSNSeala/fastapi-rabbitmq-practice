@@ -3,8 +3,8 @@ import json
 import asyncio
 
 from constants import QUEUE_NAME
-from .database import save_message
-from .message_types import MessageType
+from database import save_message
+from message_types import MessageType
 
 
 class RabbitMQConsumer:

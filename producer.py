@@ -1,7 +1,7 @@
 from typing import Optional
 
 from constants import QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY
-from .message_types import MessageType
+from message_types import MessageType
 import aio_pika
 import json
 
