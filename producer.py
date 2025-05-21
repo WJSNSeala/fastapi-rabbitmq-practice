@@ -1,4 +1,6 @@
 from typing import Optional
+
+from constants import QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY
 from .message_types import MessageType
 import aio_pika
 import json
@@ -10,9 +12,9 @@ class RabbitMQProducer:
         self.exchange = None
         self.queue = None
 
-        self.exchange_name = "message_exchange"
-        self.routing_key = "message_routing_key"
-        self.queue_name = "message_queue"
+        self.queue_name = QUEUE_NAME
+        self.exchange_name = EXCHANGE_NAME
+        self.routing_key = ROUTING_KEY
 
     async def connect(self):
         if self.is_connection_not_valid():
