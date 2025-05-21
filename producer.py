@@ -1,5 +1,5 @@
 from typing import Optional
-
+from .message_types import MessageType
 import aio_pika
 import json
 
@@ -37,13 +37,13 @@ class RabbitMQProducer:
                 routing_key=self.routing_key,
             )
 
-    async def publish_message(self, message_type: str, message_content: Optional[str] = None):
+    async def publish_message(self, message_type: MessageType, message_content: Optional[str] = None):
         try:
             if self.is_connection_not_valid():
                 await self.connect()
 
             message = {
-                "type": message_type,
+                "type": str(message_type),
                 "content": message_content or "",
             }
 
